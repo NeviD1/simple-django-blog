@@ -4,10 +4,14 @@ from blog.serializers import *
 
 
 class ArticleCreateView(generics.CreateAPIView):
+    """Create article
+    """
     serializer_class = ArticleDetailSerializer
 
 
 class CommentCreateView(generics.CreateAPIView):
+    """Create comment
+    """
     serializer_class = CommentDetailSerializer
 
     def perform_create(self, serializer):
@@ -19,6 +23,8 @@ class CommentCreateView(generics.CreateAPIView):
 
 
 class CommentListView(generics.ListAPIView):
+    """Get comment list
+    """
     serializer_class = CommentListSerializer
 
     def get_queryset(self):
