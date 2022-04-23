@@ -22,6 +22,9 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['article', 'pk']
+        indexes = [
+            models.Index(fields=['article', 'path',]),
+        ]
 
     def __str__(self):
         return self.text[:250]
