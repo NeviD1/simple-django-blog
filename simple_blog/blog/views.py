@@ -1,6 +1,7 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from blog.serializers import *
+from django.shortcuts import get_object_or_404
+from blog.serializers import ArticleDetailSerializer, CommentDetailSerializer, CommentListSerializer
+from blog.models import Article, Comment
 
 
 class ArticleCreateView(generics.CreateAPIView):
@@ -43,10 +44,14 @@ class CommentListView(generics.ListAPIView):
     def get_queryset(self):
 
         def get_queryset_for_article(article_id, number_levels=3):
-            return Comment.objects.filter(article__id=article_id).filter(path__len__lte=number_levels - 1)
+            return Comment.objects\
+                .filter(article__id=article_id)\
+                .filter(path__len__lte=number_levels - 1)
 
         def get_queryset_for_comment(article_id, parent_id):
-            return Comment.objects.filter(article__id=article_id).filter(path__overlap=[parent_id])
+            return Comment.objects\
+                .filter(article__id=article_id)\
+                .filter(path__overlap=[parent_id])
 
         article_id = self.kwargs['article_id']
         if 'parent_id' in self.kwargs:

@@ -23,7 +23,7 @@ class Comment(models.Model):
     class Meta:
         ordering = ['article', 'pk']
         indexes = [
-            models.Index(fields=['article', 'path',]),
+            models.Index(fields=['article', 'path']),
         ]
 
     def __str__(self):
